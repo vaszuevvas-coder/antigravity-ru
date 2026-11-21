@@ -4,7 +4,7 @@
 
 <br />
 
-[![Скачать релиз](https://img.shields.io/github/v/release/ZipFear/antigravity-ru?label=%D0%A1%D0%BA%D0%B0%D1%87%D0%B0%D1%82%D1%8C&style=for-the-badge&color=2563eb)](https://github.com/vaszuevvas-coder/antigravity-ru/releases/latest)
+[![Скачать релиз](https://img.shields.io/github/v/release/vaszuevvas-coder/antigravity-ru?label=%D0%A1%D0%BA%D0%B0%D1%87%D0%B0%D1%82%D1%8C&style=for-the-badge&color=2563eb)](https://github.com/vaszuevvas-coder/antigravity-ru/releases/latest)
 [![Платформы](https://img.shields.io/badge/%D0%9E%D0%A1-Windows%20%7C%20macOS%20%7C%20Linux-4f46e5?style=for-the-badge)](#%D0%B1%D1%8B%D1%81%D1%82%D1%80%D0%B0%D1%8F-%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-16a34a?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Зависимости](https://img.shields.io/badge/npm_%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D1%8B-0_%D0%B7%D0%B0%D0%B2%D0%B8%D1%81%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B5%D0%B9-10b981?style=for-the-badge)](#%D0%B1%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C-%D0%B8-%D0%BD%D0%B0%D0%B4%D1%91%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D1%8C)
@@ -56,7 +56,7 @@
 - Аккуратная подстановка переводов в веб-бандлы бокового чата с пересчётом контрольных сумм SHA-256 в `product.json` (без предупреждения *«Ваша установка повреждена»*).
 
 ### 3. ИИ-агент, экономия токенов, `Thinking` и артефакты
-Устанавливается официальный пользовательский плагин **`antigravity-ru-agent`** в глобальный каталог `~/.gemini/config/plugins/antigravity-ru-agent`:
+Устанавливается пользовательский плагин **`antigravity-ru-agent`** в глобальный каталог `~/.gemini/config/plugins/antigravity-ru-agent`:
 - **Профиль экономии токенов без потери качества** — точечное чтение файлов (`Search-Then-Slice`), пакетные параллельные вызовы инструментов (`Batching`), тихий терминал без засорения истории и делегирование широкого поиска субагенту `research` на `flash`.
 - **Ускоренные внутренние размышления (`Thinking`)** — по умолчанию используется быстрый компактный аналитический режим на английском (экономия ~35–45% выходных токенов), а при желании русскоязычный блок *«Размышлял...»* включается галочкой в GUI или флагом `--russian-thinking`.
 - **Русские карточки действий** — краткие названия команд терминала (`toolSummary`) и роли субагентов всегда отображаются по-русски.
