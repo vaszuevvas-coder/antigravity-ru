@@ -1,0 +1,15 @@
+{
+  "name": "antigravity-ru-agent",
+  "displayName": "Русификатор Antigravity (RU)",
+  "description": "Русская локализация общения, подписей шагов, планов и артефактов в Google Antigravity со встроенным режимом экономии токенов, настройкой Thinking и навыками /ru-docs, /ru-ui-update.",
+  "version": "2.3.6",
+  "author": "ZipFear",
+  "homepage": "https://github.com/vaszuevvas-coder/antigravity-ru",
+  "repository": "https://github.com/vaszuevvas-coder/antigravity-ru",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "Проанализируй проект и составь подробный план доработок на русском языке",
+    "Переведи или оформи документацию README.md этого проекта на русском языке",
+    "Проверь статус русификатора интерфейса Google Antigravity"
+  ]
+}

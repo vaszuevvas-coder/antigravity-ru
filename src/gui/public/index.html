@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Русификатор Google Antigravity</title>
+  <link rel="icon" href="/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <script>window.__AGY_RU_TOKEN__ = "__SESSION_TOKEN__";</script>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <img src="/logo.svg" alt="AGY RU" class="brand-logo">
+        <div>
+          <h1>Русификатор Google Antigravity</h1>
+          <p class="subtitle">Antigravity 2.0 • Antigravity IDE • ИИ-агент и артефакты</p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <nav class="tabs">
+          <button class="tab-btn active" data-tab="install">Установка и откат</button>
+          <button class="tab-btn" data-tab="dictionary">Словарь UI <span id="dictCountBadge" class="pill-count">0</span></button>
+        </nav>
+        <button id="btnRefresh" class="btn btn-ghost" title="Пересканировать систему">Обновить</button>
+        <button id="btnQuit" class="btn btn-ghost btn-danger-hover" title="Остановить локальный установщик и закрыть окно">Выход</button>
+      </div>
+    </header>
+
+    <!-- ВКЛАДКА 1: УСТАНОВКА И ОТКАТ -->
+    <main id="tab-install" class="tab-panel active">
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h2>1. Русский режим ИИ-агента и артефактов</h2>
+            <p class="muted">Официальный плагин для глобальной конфигурации Antigravity: ответы, планы, задачи и обзоры изменений на русском языке.</p>
+          </div>
+          <span id="pluginStatusBadge" class="status-badge">Проверка...</span>
+        </div>
+
+        <label class="target-row">
+          <input type="checkbox" id="chkEnablePlugin" checked>
+          <div class="target-info">
+            <div class="target-title">Плагин <code>antigravity-ru-agent</code> (правила + навыки <code>/ru-docs</code> и <code>/ru-ui-update</code>)</div>
+            <div class="target-path" id="pluginPathText">~/.gemini/config/plugins/antigravity-ru-agent</div>
+          </div>
+        </label>
+
+        <div class="sub-options">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="chkTokenEconomy" checked>
+            <span>Режим экономии токенов без потери качества (точечное чтение файлов, пакетные вызовы, тихий терминал, субагенты на Flash)</span>
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="chkRussianThinking">
+            <span>Вести внутренний черновик мыслей ИИ (блок «Размышлял...») также на русском языке (при выключении — быстрый телеграфный EN-анализ, экономящий ~35% токенов; все ответы и карточки шагов остаются на русском)</span>
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="chkRussianComments">
+            <span>Писать новые комментарии и docstrings в коде также на русском языке</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h2>2. Русификация интерфейса программ (UI-патчер)</h2>
+            <p class="muted">Перевод меню, боковых панелей, настроек, кнопок чата и редактора с автоматическим созданием резервной копии.</p>
+          </div>
+          <div class="header-btns">
+            <button id="btnBrowseFolder" class="btn btn-secondary">+ Обзор папки...</button>
+          </div>
+        </div>
+
+        <div class="manual-path-bar">
+          <input type="text" id="inputManualPath" placeholder="Или вставьте путь к папке Antigravity (например C:\Users\...\AppData\Local\Programs\Antigravity)">
+          <button id="btnAddManualPath" class="btn btn-secondary">Добавить</button>
+        </div>
+
+        <div id="installationsList" class="targets-list">
+          <div class="empty-state">Поиск установленных версий Google Antigravity...</div>
+        </div>
+
+        <div class="sub-options">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="chkConfigureLocale" checked>
+            <span>Прописать <code>"locale": "ru"</code> в <code>argv.json</code> для Antigravity IDE</span>
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="chkPatchIntegrity" checked>
+            <span>Автоматически обновлять хеш <code>ElectronAsarIntegrity</code> (с резервной копией исполняемого файла)</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="action-bar-card">
+        <div class="primary-actions">
+          <button id="btnInstall" class="btn btn-primary btn-lg">Установить русификатор</button>
+          <button id="btnDryRun" class="btn btn-secondary btn-lg">Проверить (без изменений)</button>
+        </div>
+        <div class="rollback-actions">
+          <button id="btnRestore" class="btn btn-warning">Откатить оригинал из бэкапа</button>
+        </div>
+      </section>
+
+      <section class="card log-card">
+        <div class="card-header compact">
+          <h3>Журнал операций</h3>
+          <button id="btnClearLog" class="btn-link">Очистить</button>
+        </div>
+        <div id="logOutput" class="log-console">Готов к работе. Перед русификацией интерфейса рекомендуется закрыть окна Google Antigravity, чтобы архив app.asar не был занят процессом.</div>
+      </section>
+    </main>
+
+    <!-- ВКЛАДКА 2: СЛОВАРЬ И СКАНЕР -->
+    <main id="tab-dictionary" class="tab-panel">
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h2>Пользовательское переопределение / новая строка</h2>
+            <p class="muted">Ваши правки сохраняются в <code>dictionaries/user-overrides.json</code> и имеют приоритет над базовым словарём.</p>
+          </div>
+        </div>
+        <div class="override-form">
+          <input type="text" id="inputSourceEn" placeholder="Английская строка в UI (например: New Conversation)">
+          <input type="text" id="inputTargetRu" placeholder="Русский перевод (оставьте пустым для сброса)">
+          <button id="btnSaveOverride" class="btn btn-primary">Сохранить</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h2>Сканер непереведённых строк (после обновлений Antigravity)</h2>
+            <p class="muted">Находит новые английские кнопки и заголовки в выбранной папке программы, которых ещё нет в словаре.</p>
+          </div>
+          <div class="header-btns">
+            <select id="selectScanDir" class="select-input"></select>
+            <button id="btnScanUntranslated" class="btn btn-secondary">Сканировать</button>
+          </div>
+        </div>
+        <div id="scanResultsBox" class="scan-results hidden"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h2>Текущий словарь интерфейса</h2>
+          </div>
+          <input type="search" id="inputDictSearch" class="search-input" placeholder="Поиск по английскому или русскому тексту...">
+        </div>
+        <div id="dictCategoriesContainer" class="dict-container"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

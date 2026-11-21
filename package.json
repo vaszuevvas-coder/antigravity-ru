@@ -1,0 +1,40 @@
+{
+  "name": "antigravity-ru",
+  "version": "2.3.6",
+  "description": "Комплексный русификатор для Google Antigravity (Antigravity 2.0, Antigravity IDE и ИИ-агента) с GUI, CLI, авто-бэкапом и откатом",
+  "type": "commonjs",
+  "main": "src/cli.js",
+  "bin": {
+    "antigravity-ru": "./src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js gui",
+    "gui": "node src/cli.js gui",
+    "status": "node src/cli.js status",
+    "install-ru": "node src/cli.js install",
+    "dry-run": "node src/cli.js install --dry-run",
+    "restore": "node src/cli.js restore",
+    "test": "node --test test/russifier.test.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "google-antigravity",
+    "antigravity",
+    "russian",
+    "localization",
+    "russifier",
+    "русификатор"
+  ],
+  "author": "ZipFear",
+  "homepage": "https://github.com/vaszuevvas-coder/antigravity-ru#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vaszuevvas-coder/antigravity-ru.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vaszuevvas-coder/antigravity-ru/issues"
+  },
+  "license": "MIT"
+}
