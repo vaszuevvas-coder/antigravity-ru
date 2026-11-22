@@ -1748,6 +1748,54 @@ test('20. Локализация обновления Antigravity v2.34.0 (Orche
   assert.ok(remoteDetailText.includes('Продолжайте, только если вы сами выбрали вход через аккаунт организации '));
   assert.ok(remoteDetailText.includes('в этом окне. ${entry.label} получит доступ к '));
   assert.ok(remoteDetailText.includes('Пул сотрудников: ${names[1]}  Провайдер: ${names[2]}'));
+
+  // 5. Выбор моделей: описание Gemini 4, уровни размышлений без скобок и сохранение ведущего пробела в строке чата
+  assert.equal(
+    rt.translateString('The original Gemini 4 model for advanced workflows'),
+    'Оригинальная модель Gemini 4 для сложных рабочих процессов'
+  );
+  assert.equal(rt.translateString('Gemini 4 Neon Extra High'), 'Gemini 4 Neon Сверхвысокий');
+  assert.equal(rt.translateString('Gemini 4 Hydrogen Medium · 1M'), 'Gemini 4 Hydrogen Средний · 1M');
+
+  const pillEffortSpan = {
+    nodeType: 1,
+    tagName: 'SPAN',
+    className: 'opacity-70',
+    getAttribute: () => null,
+    childNodes: [],
+  };
+  const spaceNode = { nodeType: 3, nodeValue: ' ', parentElement: pillEffortSpan, parentNode: pillEffortSpan };
+  const effortNode = { nodeType: 3, nodeValue: 'Medium', parentElement: pillEffortSpan, parentNode: pillEffortSpan };
+  pillEffortSpan.childNodes = [spaceNode, effortNode];
+  rt.walkSubtree(pillEffortSpan);
+  assert.equal(spaceNode.nodeValue + effortNode.nodeValue, ' Средний');
+
+  // 6. Тултипы меню выбора моделей (Gemini 4 / Оркестратор / уведомления Claude 5.5) и "just now"
+  assert.equal(rt.translateString('just now'), 'только что');
+  assert.equal(
+    rt.translateString('For most deep reasoning and complex problems'),
+    'Для большинства задач с глубоким анализом и сложными проблемами'
+  );
+  assert.equal(
+    rt.translateString('For your hardest, long-horizon tasks'),
+    'Для самых сложных и длительных задач'
+  );
+  assert.equal(
+    rt.translateString('For speed and efficiency in execution tasks'),
+    'Для скорости и эффективности при выполнении задач'
+  );
+  assert.equal(
+    rt.translateString('Offloads routine steps to a faster executor. Same quality, fewer tokens used.'),
+    'Передаёт рутинные шаги более быстрому исполнителю. То же качество при меньшем расходе токенов.'
+  );
+  assert.equal(
+    rt.translateString('Sonnet 5.5 is now available on paid Pro and Ultra plans. Third-party model access will no longer be available on your current plan starting on November 30, 2026.'),
+    'Sonnet 5.5 теперь доступна на платных тарифах Pro и Ultra. Доступ к сторонним моделям на вашем текущем тарифе прекратится с 30 ноября 2026 г.'
+  );
+  assert.equal(
+    rt.translateString('Opus 5.5 is now available on paid Pro and Ultra plans. Third-party model access will no longer be available on your current plan starting on November 30, 2026.'),
+    'Opus 5.5 теперь доступна на платных тарифах Pro и Ultra. Доступ к сторонним моделям на вашем текущем тарифе прекратится с 30 ноября 2026 г.'
+  );
 });
 
 

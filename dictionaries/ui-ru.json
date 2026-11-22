@@ -1067,6 +1067,8 @@
         "Fast responses for everyday tasks.": "Быстрые ответы для повседневных задач.",
         "Faster responses with lower token usage.": "Быстрые ответы с меньшим расходом токенов.",
         "Optimized for speed and efficiency.": "Оптимизирована для высокой скорости и экономии токенов.",
+        "The original Gemini 4 model for advanced workflows": "Оригинальная модель Gemini 4 для сложных рабочих процессов",
+        "The original Gemini 4 model for advanced workflows.": "Оригинальная модель Gemini 4 для сложных рабочих процессов.",
         "Plan upgrade required": "Требуется повышение тарифа",
         "Select a model using the model selector in the input box": "Выберите модель в селекторе моделей поля ввода",
         "No models are available for your current project or account. Please check your project settings and IAM permissions.": "Для вашего текущего проекта или аккаунта нет доступных моделей. Проверьте настройки проекта и права IAM.",
@@ -5579,7 +5581,12 @@
         "Build, test, and manage n8n workflows and Agents through your instance MCP server. Use official skills for node setup, credentials, and debugging.": "Создавайте, тестируйте и управляйте сценариями и агентами n8n через MCP-сервер вашего инстанса. Включает официальные навыки для настройки узлов, учётных данных и отладки.",
         "Find workflows on my n8n instance.": "Найди сценарии на моём инстансе n8n.",
         "Help me build and test an n8n workflow.": "Помоги собрать и протестировать сценарий в n8n.",
-        "Review an n8n workflow for errors.": "Проверь сценарий n8n на наличие ошибок."
+        "Review an n8n workflow for errors.": "Проверь сценарий n8n на наличие ошибок.",
+        "just now": "только что",
+        "For most deep reasoning and complex problems": "Для большинства задач с глубоким анализом и сложными проблемами",
+        "For your hardest, long-horizon tasks": "Для самых сложных и длительных задач",
+        "For speed and efficiency in execution tasks": "Для скорости и эффективности при выполнении задач",
+        "Offloads routine steps to a faster executor. Same quality, fewer tokens used.": "Передаёт рутинные шаги более быстрому исполнителю. То же качество при меньшем расходе токенов."
       }
     }
   }

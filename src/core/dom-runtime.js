@@ -711,11 +711,18 @@ function antigravityPreloadRuntime(EXACT, scopeOverrides) {
       [/^(\*\s*)?(?:This\s+model\s+)?will\s+be\s+(?:removed|retired|deprecated)\s+on\s+(.+?)\.?$/i, function (_, star, dt) {
         return (star ? '* ' : '') + 'Будет отключена ' + translateEnDateToRu(dt) + (/г\.$/.test(translateEnDateToRu(dt)) ? '' : '.');
       }],
+      [/^(.+?)\s+is\s+now\s+available\s+on\s+paid\s+Pro\s+and\s+Ultra\s+plans\.\s*Third-party\s+model\s+access\s+will\s+no\s+longer\s+be\s+available\s+on\s+your\s+current\s+plan\s+starting\s+on\s+(.+?)\.?$/i, function (_, model, dt) {
+        var dtRu = translateEnDateToRu(dt);
+        return model.trim() + ' теперь доступна на платных тарифах Pro и Ultra. Доступ к сторонним моделям на вашем текущем тарифе прекратится с ' + dtRu + (/г\.$/.test(dtRu) ? '' : '.');
+      }],
       [/^([A-Za-z0-9][A-Za-z0-9._\s+-]*?)\s*\((Thinking|(?:Extra\s+)?(?:Low|Medium|High)|XHigh|Extra|Max|Fast)(?:\s+Thinking)?\)$/i, function (full, base, qual) {
         var b = base.trim();
         if (/^(?:Close|Fullscreen|Exit fullscreen|Zoom in|Zoom out|Reset zoom|Submit Prompt)$/i.test(b)) return full;
         var rawQual = full.slice(full.lastIndexOf('(') + 1, full.lastIndexOf(')'));
         return b + ' (' + translateModelEffortQualifier(rawQual) + ')';
+      }],
+      [/^(Gemini\s+\d+(?:\.\d+)?\s+(?:Neon|Carbon|Argon|Hydrogen|Pro|Flash(?:\s+Lite)?)|Claude\s+(?:Opus|Sonnet|Haiku)\s+\d+(?:\.\d+)?|GPT-OSS\s+\d+B)\s+((?:Extra\s+)?(?:Low|Medium|High)|XHigh|Extra|Max|Fast|Thinking)(?:\s*\u00b7\s*(.+))?$/i, function (_, base, qual, ctx) {
+        return base.trim() + ' ' + translateModelEffortQualifier(qual) + (ctx ? (' \u00b7 ' + translateInnerTerm(ctx)) : '');
       }],
       [/^(Low|Medium|High|XHigh|Extra|Max)\s*\u00b7\s*(.+)$/i, function (_, eff, ctx) {
         return translateModelEffortQualifier(eff) + ' \u00b7 ' + translateInnerTerm(ctx);
@@ -1416,15 +1423,21 @@ function antigravityPreloadRuntime(EXACT, scopeOverrides) {
         }
       }
 
-      var combined = parts.join('').trim();
+      var rawJoined = parts.join('');
+      var combined = rawJoined.trim();
       if (!combined || combined.length > 4500) return false;
       if (/^\(\s*[\d,.\s]+\s+tokens?\s*\)$/i.test(combined)) return false;
       var ru = translateString(combined);
       if (!ru || ru === combined) return false;
 
+      var leadIdx = rawJoined.indexOf(combined);
+      var leadWs = leadIdx > 0 ? rawJoined.slice(0, leadIdx) : '';
+      var trailWs = leadIdx !== -1 ? rawJoined.slice(leadIdx + combined.length) : '';
+      var finalRu = leadWs + ru + trailWs;
+
       for (var k = 0; k < textNodes.length; k++) {
         var nodeItem = textNodes[k];
-        var nextText = k === 0 ? ru : '';
+        var nextText = k === 0 ? finalRu : '';
         nodeItem.__agyLastSet = nextText;
         if (nodeItem.nodeValue !== nextText) {
           nodeItem.nodeValue = nextText;
